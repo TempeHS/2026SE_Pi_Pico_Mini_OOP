@@ -38,8 +38,8 @@ class Led_Light(Pin)
         elif value == 0:
             self.on()
 
-def flash(self):
-    now = time()
-    if self.__flashing and now - self.__last_toggle_time >= 0.5:
-        self.toggle()
-        self.__last_toggle_time = now
+    def flash(self):
+        now = time()
+        if self.__flashing and now - self.__last_toggle_time >= 0.5:
+            self.toggle()
+            self.__last_toggle_time = now

@@ -1,26 +1,36 @@
+'''
+A simple script to unit test hardware
+'''
+
 from machine import Pin
-from time import sleep
+from machine import PWM
 
-# Wait for USB to become ready
-sleep(0.1)
+# Pin Documentation: https://docs.micropython.org/en/latest/library/machine.Pin.html
+# PWM Documentation: https://docs.micropython.org/en/latest/library/machine.PWM.html
+# Pinout: https://datasheets.raspberrypi.com/pico/Pico-R3-Pinout.png
 
-#store desired output pin in a variable
-led_pin = 25
-led2_pin = 15
-data_pin = 13
+led_car_red = Pin(3, Pin.OUT)
+led_car_orange = Pin(5, Pin.OUT)
+led_car_green = Pin(6, Pin.OUT)
 
-#configure GPIO Pin as an output pin and create and led object for Pin class
-led = Pin(led_pin, Pin.OUT)
-led2 = Pin(led2_pin, Pin.OUT)
+led_pedestrian_red = Pin(19, Pin.OUT)
+led_pedestrian_green = Pin(17, Pin.OUT)
 
-#configure GPIO Pin as an input pin and create a data object for Pin class
-data = Pin(data_pin, Pin.IN)
+pedestrian_button = Pin(22, Pin.IN, Pin.PULL_DOWN)
+
+buzzer = PWM(27)
+buzzer.freq(1000)
+
 
 while True:
-    if data.value() == 1:
-        led.value(True)  #turn on the LED
-        led2.value(False)  #turn off the LED2
-    else:
-        led.value(False)  #turn off the LED
-        led2.value(True)  #turn on the LED2
-    sleep(0.1)
+    
+    buzzer.duty_u16(32768)
+
+    led_car_red.high()
+    led_car_orange.high()
+    led_car_green.high()
+
+    led_pedestrian_red.high()
+    led_pedestrian_green.high()
+
+    print(pedestrian_button.value())

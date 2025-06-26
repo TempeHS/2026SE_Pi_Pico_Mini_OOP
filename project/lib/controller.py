@@ -35,30 +35,30 @@ class PedestrianSubsystem:
     def __init__(self, red, green, button, buzzer, debug=False):
         self.__red = red
         self.__green = green
-        self.__button = Pedestrian_Button
+        self.__button = button
         self.__buzzer = buzzer
         self.__debug = debug
 
         def show_stop(self):
             if self.__debug:
                 print("Pedestrian: Red On")
-                self.__red = flashing()
-                self.__green = off()
+                self.__red.on()
+                self.__green.off()
                 self.__buzzer.warning_off()
 
         def show_walk(self):
             if self.__debug:
                 print("Pedestrian: Green On")
-                self.__red = off()
-                self.__green = off()
+                self.__red.off()
+                self.__green.on()
                 self.__buzzer.warning_on()
         
         def show_warning(self):
             if self.__debug:
                 print("Pedestrian: Warning On")
-                self.__red = off()
-                self.__green = off()
-                self.__buzzer.warning_on()
+                self.__red.flashing()
+                self.__green.off()
+                self.__buzzer.warning_off()
 
         def is_button_pressed(self):
             return self.__button.button_state()
