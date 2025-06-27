@@ -10,21 +10,21 @@ class Pedestrian_Buttom(Pin):
         self.__last_pressed = 0
         #track the last time the buton was pressed
         self.__pedestrian_waiting = False
-        self.button_state
 
     @property
-    def button_state(self):
-        if self.__debug:
+    def button_state(self, value=None):
+        if value is None:
+            if self.__debug:
             print(f"Button connected to Pin {self.__pin} is {'WAITING' if self.__pedestrian_waiting else 'NOT WAITING'}")
             return self.__pedestrian_waiting
-    
-    @button_state.setter
-    def button_state(self, value):
-        self.__pedestrian_waiting = value
-        if self.__debug:
-            print(f"Button state on Pin {self.__pin} set to {value}")
-
-
+        else:
+            self.__pedestrian_waiting = bool(
+                value
+            )
+            if self.__debug:
+                print(
+                    f"Button state on Pin {self.__pin} set to {self.__pedestrian_waiting}"
+                )
 
 class Pedestrian_Button(Pin):
     #child class inherits the parent 'Pin' class
